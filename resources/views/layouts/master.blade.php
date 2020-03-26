@@ -99,8 +99,8 @@
                 <div class="col-lg-6">
                     <ul class="top-menu">
                         <li><a href="{{asset('about')}}">О проекте</a></li>
-                        <li><a href="{{asset('contact')}}">Реклама</a></li>
-                        <li><a href="{{asset('adv')}}">Контакты</a></li>
+                        <li><a href="{{asset('adv')}}">Реклама</a></li>
+                        <li><a href="{{asset('contact')}}">Контакты</a></li>
                     </ul>
                 </div>
 
