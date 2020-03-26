@@ -52,9 +52,9 @@
     <!-- Nav -->
     <nav class="sidenav__menu-container">
         <ul class="sidenav__menu" role="menubar">
-            <li>
-                <a href="#" class="sidenav__menu-url">Главное</a>
-            </li>
+{{--            <li>--}}
+{{--                <a href="#" class="sidenav__menu-url">Главное</a>--}}
+{{--            </li>--}}
             <li>
                 <a href="#" class="sidenav__menu-url">Политика</a>
             </li>
@@ -71,7 +71,7 @@
                 <a href="#" class="sidenav__menu-url">Наука</a>
             </li>
             <li>
-                <a href="#" class="sidenav__menu-url">Кино</a>
+                <a href="#" class="sidenav__menu-url">Здоровье</a>
             </li>
             <li>
                 <a href="#" class="sidenav__menu-url">Мир</a>
