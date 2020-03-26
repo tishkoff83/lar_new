@@ -15,7 +15,7 @@ class BaseController extends Controller
     public function getUrl($url = null)
     {
         $obj = Maintext::where('url', $url)->first();
-        return view('static.static', compact('url'));
+        return view('static.static', compact('obj'));
 
     }
 }

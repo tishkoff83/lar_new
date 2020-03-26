@@ -220,6 +220,7 @@
         </li>
 @endguest
 
+
 @yield('content')
 
 <!-- Footer -->

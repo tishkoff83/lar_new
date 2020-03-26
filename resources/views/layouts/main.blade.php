@@ -1,10 +1,3 @@
-@extends('layouts.master')
-
-@section('title', 'Главная')
-
-@section('content')
-
-
 <!-- Trending Now -->
 <div class="container">
     <div class="trending-now">
@@ -1327,4 +1320,3 @@
 
 
 </div> <!-- end main container -->
-@endsection
