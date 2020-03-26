@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateMaintextsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +13,12 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        // Create table for storing categories
-        Schema::create('categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('url');
+        Schema::create('maintexts',function(Blueprint $table){
+            $table->increments("id");
+            $table->string("name")->nullable();
+            $table->text("body")->nullable();
+            $table->string("url");
+            $table->string("type")->nullable();
             $table->enum("lang", ["ru", "en"])->default('ru');
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('categories');
+        Schema::dropIfExists('maintexts');
     }
 }

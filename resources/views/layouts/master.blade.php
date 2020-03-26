@@ -12,9 +12,9 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,600,700%7CSource+Sans+Pro:400,600,700' rel='stylesheet'>
 
     <!-- Css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-icons.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/font-icons.css')}}" />
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 
     <!-- Favicons -->
     <link rel="shortcut icon" href="img/favicon.ico">
@@ -98,9 +98,9 @@
                 <!-- Top menu -->
                 <div class="col-lg-6">
                     <ul class="top-menu">
-                        <li><a href="#">О проекте</a></li>
-                        <li><a href="#">Реклама</a></li>
-                        <li><a href="#">Контакты</a></li>
+                        <li><a href="{{asset('about')}}">О проекте</a></li>
+                        <li><a href="{{asset('contact')}}">Реклама</a></li>
+                        <li><a href="{{asset('adv')}}">Контакты</a></li>
                     </ul>
                 </div>
 
@@ -191,6 +191,34 @@
         </div>
     </header> <!-- end navigation -->
 
+    @guest
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+        </li>
+        @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+            </li>
+        @endif
+    @else
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }} <span class="caret"></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+        </li>
+@endguest
 
 @yield('content')
 
@@ -323,15 +351,15 @@
 
 
 <!-- jQuery Scripts -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/easing.min.js"></script>
-<script src="js/owl-carousel.min.js"></script>
-<script src="js/flickity.pkgd.min.js"></script>
-<script src="js/twitterFetcher_min.js"></script>
-<script src="js/jquery.newsTicker.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/scripts.js"></script>
+<script src="{{asset('js/jquery.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/easing.min.js')}}"></script>
+<script src="{{asset('js/owl-carousel.min.js')}}"></script>
+<script src="{{asset('js/flickity.pkgd.min.js')}}"></script>
+<script src="{{asset('js/twitterFetcher_min.js')}}"></script>
+<script src="{{asset('js/jquery.newsTicker.min.js')}}"></script>
+<script src="{{asset('js/modernizr.min.js')}}"></script>
+<script src="{{asset('js/scripts.js')}}"></script>
 
 </body>
 </html>
