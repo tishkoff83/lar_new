@@ -24,7 +24,7 @@
 
             <!-- Posts -->
             <div class="col-lg-8 blog__content mb-72">
-                <h1 class="page-title">World</h1>
+                <h1 class="page-title">{{$category->title}}</h1>
 
                 <div class="row card-row">
                     <div class="col-md-6">

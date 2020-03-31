@@ -27,4 +27,4 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/', 'BaseController@getIndex')->name('index');
 Route::get('{url}', 'BaseController@getUrl');
 
-Route::get('category/{slug}', 'CategoryController@getOne')->name('categories');
+Route::get('category/{url}', 'CategoryController@getOne')->name('categories');
