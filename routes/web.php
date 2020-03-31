@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BaseController;
-use Illuminate\Support\Facades\Route;
+//use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +24,5 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/', 'BaseController@getIndex')->name('index');
 Route::get('{url}', 'BaseController@getUrl');
-
-Route::get('single-post');
 
 
