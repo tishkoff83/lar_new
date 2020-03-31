@@ -106,14 +106,47 @@
 
                 <!-- Socials -->
                 <div class="col-lg-6">
-                    <div class="socials nav__socials socials--nobase socials--white justify-content-end">
-                        <a class="social social-facebook" href="#" target="_blank" aria-label="facebook">
-                            <i class="ui-facebook"></i>
-                        </a>
-                        <a class="social social-instagram" href="#" target="_blank" aria-label="instagram">
-                            <i class="ui-instagram"></i>
-                        </a>
-                    </div>
+                    <ul class="top-menu">
+                    @guest
+                            <ul class="top-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                            </li>
+                        @endif
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                    @endguest
+
+{{--                    <div class="socials nav__socials socials--nobase socials--white justify-content-end">--}}
+{{--                        <a class="social social-facebook" href="#" target="_blank" aria-label="facebook">--}}
+{{--                            <i class="ui-facebook"></i>--}}
+{{--                        </a>--}}
+{{--                        <a class="social social-instagram" href="#" target="_blank" aria-label="instagram">--}}
+{{--                            <i class="ui-instagram"></i>--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+
                 </div>
 
             </div>
@@ -135,9 +168,15 @@
                     </button>
 
                     <!-- Logo -->
-                    <a href="index.html" class="logo">
-                        <img class="logo__img" src="img/logo_default.png" srcset="img/logo_default.png 1x, img/logo_default@2x.png 2x" alt="logo">
+                    <a href="/">
+                    <span style="line-height: 40px;margin-left:20px;font-weight: normal;font-size: 21px;">
+                    <span style="color:#353535;">новости</span>
+                    <span style="color:#fff;background: #ba0505;padding:2px 7px 2px 7px;border-radius: 5px;">24</span>
+                    </span>
                     </a>
+{{--                    <a href="index.html" class="logo">--}}
+{{--                        <img class="logo__img" src="img/logo_default.png" srcset="img/logo_default.png 1x, img/logo_default@2x.png 2x" alt="logo">--}}
+{{--                    </a>--}}
 
                     <!-- Nav-wrap -->
                     <nav class="flex-child nav__wrap d-none d-lg-block">
@@ -190,35 +229,6 @@
 
         </div>
     </header> <!-- end navigation -->
-
-    @guest
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-        </li>
-        @if (Route::has('register'))
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-            </li>
-        @endif
-    @else
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-        </li>
-@endguest
 
 
 @yield('content')

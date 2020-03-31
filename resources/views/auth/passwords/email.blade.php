@@ -1,11 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
+
+    <!-- Breadcrumbs -->
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="/" class="breadcrumbs__url">Главная</a>
+            </li>
+
+            <li class="breadcrumbs__item breadcrumbs__item--current">
+                {{ __('Reset Password') }}
+            </li>
+        </ul>
+    </div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+
+
 
                 <div class="card-body">
                     @if (session('status'))
@@ -33,7 +47,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-lg btn-color">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>
@@ -43,5 +57,5 @@
             </div>
         </div>
     </div>
-</div>
+<br><br>
 @endsection

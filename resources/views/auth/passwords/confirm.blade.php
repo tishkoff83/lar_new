@@ -1,11 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
+
+    <!-- Breadcrumbs -->
+    <div class="container">
+        <ul class="breadcrumbs">
+            <li class="breadcrumbs__item">
+                <a href="/" class="breadcrumbs__url">Главная</a>
+            </li>
+
+            <li class="breadcrumbs__item breadcrumbs__item--current">
+                {{ __('Confirm Password') }}
+            </li>
+        </ul>
+    </div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
+
 
                 <div class="card-body">
                     {{ __('Please confirm your password before continuing.') }}
@@ -45,5 +58,6 @@
             </div>
         </div>
     </div>
-</div>
+<br>
+<br>
 @endsection
