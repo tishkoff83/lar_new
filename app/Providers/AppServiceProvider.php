@@ -4,7 +4,7 @@ namespace App\Providers;
 
 
 
-use Illuminate\Support\Facades\View;
+use View;
 use Illuminate\Support\ServiceProvider;
 
 

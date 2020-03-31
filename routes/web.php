@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BaseController;
+use App\Providers\ViewComposers\BaseComposer;
+
 //use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +27,4 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/', 'BaseController@getIndex')->name('index');
 Route::get('{url}', 'BaseController@getUrl');
 
-
+Route::get('category/{slug}', 'CategoryController@getOne')->name('categories');

@@ -55,34 +55,10 @@
 
             @foreach($v_categories as $one)
                 <li>
-                    <a href="{{asset('catalog/'.$one->slag)}}" class="sidenav__menu-url">{{$one->name}}</a>
+                    <a href="{{ route('categories', $one->url) }}" class="sidenav__menu-url">{{$one->title}}</a>
                 </li>
         @endforeach
 
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Главное</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Политика</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Общество</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Жизнь</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Происшествия</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Наука</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Здоровье</a>--}}
-{{--            </li>--}}
-{{--            <li>--}}
-{{--                <a href="#" class="sidenav__menu-url">Мир</a>--}}
-{{--            </li>--}}
     </nav>
 
     <div class="socials sidenav__socials">
