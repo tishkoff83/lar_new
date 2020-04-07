@@ -23,8 +23,11 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+Route::get('parse', 'NewsController@getNews');
 
 Route::get('/', 'BaseController@getIndex')->name('index');
 Route::get('{url}', 'BaseController@getUrl');
 
 Route::get('category/{url}', 'CategoryController@getOne')->name('categories');
+
+

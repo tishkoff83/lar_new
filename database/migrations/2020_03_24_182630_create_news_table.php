@@ -22,6 +22,7 @@ class CreateNewsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->unsignedTinyInteger('category_id');
             $table->enum("lang", ["ru", "en"])->default('ru');
+            $table->integer('count')->default(0);
             $table->timestamps();
         });
     }
