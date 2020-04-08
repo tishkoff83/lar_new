@@ -16,13 +16,14 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->text('description');
+            $table->text('body');
             $table->string('image');
-            $table->string('url');
+            $table->string('slug')->nullable();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->unsignedTinyInteger('category_id');
+            $table->unsignedTinyInteger('category_id')->nullable();
             $table->enum("lang", ["ru", "en"])->default('ru');
             $table->integer('count')->default(0);
+            $table->string('origin_link')->nullable();
             $table->timestamps();
         });
     }
