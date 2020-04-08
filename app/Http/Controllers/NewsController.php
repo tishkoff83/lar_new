@@ -10,10 +10,8 @@ use App\Parser\VestiNews;
 class NewsController extends Controller
 {
     public function getNews(){
-        $news = News::all();
-        foreach($news as $one){
-            $obj=new GoogleNews;
-            $pars=$obj->getParse($obj->title, $obj->id);
-        }
+
+        $obj = new VestiNews;
+        $obj->getParse('url');
     }
 }
