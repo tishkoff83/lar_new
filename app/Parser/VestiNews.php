@@ -63,42 +63,64 @@ class VestiNews implements ParseContract
     {
 
         $news = $url;
-        $html = file_get_contents($news);
-        $this->crawler = new Crawler($html);
+        $htm = file_get_contents($news);
+        $this->crawler = new Crawler($htm);
 
-        //Get Category news
-        $cat = $this->crawler->filter('.spec')->each(function (Crawler $node, $i) {
-            return $node->text("href");
+        $this->crawler->filter('.article__title')->each(function (Crawler $node, $i) {
+            $title = $this->text($node, "h1");
+            $news_new = new News;
+            $news_new->title = $title;
+            $news_new->save();
+           // return $node->text("href");
         });
 
 
-        // Get Title news.
-        $title = $this->crawler->filter('.article__title')->each(function (Crawler $node, $i) {
-            return $node->text("h1");
-        });
+//        //Get Category news
+//        $cat = $this->crawler->filter('.spec')->each(function (Crawler $node, $i) {
+//            return $node->text("href");
+//        });
+//
+//
+//        // Get Title news.
+//        $title = $this->crawler->filter('.article__title')->each(function (Crawler $node, $i) {
+//            return $node->text("h1");
+//        });
+//
+//        // Get Text news
+//        $body = $this->crawler->filter('.js-mediator-article')->each(function (Crawler $node, $i) {
+//            return $node->html("p");
+//        });
+//
+//        // Get Image URL
+//        $image = $this->crawler->filter('.article__img img')->each(function (Crawler $node, $i) {
+//            return $node->image()->getUri();
+//        });
 
-        // Get Text news
-        $body = $this->crawler->filter('.js-mediator-article')->each(function (Crawler $node, $i) {
-            return $node->html("p");
-        });
+//        $content = [
+//            'origin_link' => $news,
+//            'cat' => $cat,
+//            'title' => $title,
+//            'body' => $body,
+//            'image' => $image,
+//        ];
 
-        // Get Image URL
-        $image = $this->crawler->filter('.article__img img')->each(function (Crawler $node, $i) {
-            return $node->image()->getUri();
-        });
+//        News::create([
+//           // 'origin_link' => implode($news),
+//           // 'cat' => $cat,
+//            'title' => $title,
+//           // 'body' => $body,
+//          //  'image' => implode($image),
+//        ]);
 
-        $content = [
-            'origin_link' => $news,
-            // 'cat' => $cat,
-            'title' => $title,
-            'body' => $body,
-            'image' => $image,
-        ];
+       // dd($content);
 
-        // return $content;
 
-        $project = new News();
-        News::saved($project);
+
+//
+//        // return $content;
+//
+//        $project = new News();
+//        News::saved($project);
 
 //        public function create_project($content)
 //    {
@@ -111,17 +133,18 @@ class VestiNews implements ParseContract
 //
 //        return DB::insert('insert into st_projects (title, description, url, author, create_date, update_date) values (?, ?, ?, ?, ?, ?)', [$title, $description, $url, $author, $create_date, $update_date]);
 //    }
+//
+//
+////        DB::table('news')->insert([
+////            // 'origin_link' => $news,
+////            'title' => $content['title'],
+////            'body' => $content['body'],
+////            'image' => $content['image'],
+////        ]);
+//
+//       // dd($content);
+//
+ }
 
-
-//        DB::table('news')->insert([
-//            // 'origin_link' => $news,
-//            'title' => $title,
-//            'body' => $body,
-//            'image' => $image,
-//        ]);
-
-       // dd($content);
-
-    }
 
 }
