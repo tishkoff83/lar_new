@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function getOne($url=null)
+
+//    public function getAll()
+//    {
+//        $news = News::paginate(20);
+//        return view('index', compact('news'));
+//    }
+
+    public function categories($url = null)
     {
-        $category = Category::where('url', $url)->first();
-        return view('category', compact('category'));
+        $categories = Category::where('slug', $url)->first()->paginate(10);
+      //dd($categories->links());
+        return view('categories', compact('categories'));
     }
+
+
 }

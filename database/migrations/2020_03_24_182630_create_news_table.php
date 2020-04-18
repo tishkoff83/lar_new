@@ -15,7 +15,7 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->text('body')->nullable();
             $table->string('image')->nullable();
             $table->string('slug')->nullable();
@@ -24,6 +24,7 @@ class CreateNewsTable extends Migration
             $table->enum("lang", ["ru", "en"])->default('ru');
             $table->integer('count')->default(0);
             $table->string('origin_link')->nullable();
+            $table->time('time');
             $table->timestamps();
         });
     }

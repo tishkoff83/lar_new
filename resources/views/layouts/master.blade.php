@@ -55,7 +55,7 @@
 
             @foreach($v_categories as $one)
                 <li>
-                    <a href="{{ route('categories', $one->url) }}" class="sidenav__menu-url">{{$one->title}}</a>
+                    <a href="{{ route('categories', $one->slug) }}" class="sidenav__menu-url">{{$one->title}}</a>
                 </li>
         @endforeach
 

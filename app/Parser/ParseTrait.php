@@ -10,7 +10,7 @@ trait ParseTrait
         if ($risk == 0) {
             $rams = '';
         } else {
-            $rams = $obj->filter($val)->text();
+            $rams = strip_tags($obj->filter($val)->text());
         }
         return $rams;
     }
@@ -21,8 +21,10 @@ trait ParseTrait
         if ($risk == 0) {
             $rams = '';
         } else {
-            $rams = $obj->filter($val)->html();
+            $rams = strip_tags($obj->filter($val)->html(), '<blockquote></blockquote><i></i>');
         }
         return $rams;
     }
+
+
 }

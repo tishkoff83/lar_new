@@ -2,9 +2,9 @@
 
 namespace App\Parser;
 
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\DomCrawler\Crawler;
 use App\News;
+use App\Http\Controllers\TranslitController;
 use App\Category;
 use Auth;
 
@@ -21,44 +21,21 @@ class VestiNews implements ParseContract
 
     public function getParse($path)
     {
+
         $url = 'https://www.vesti.ru/news';
         $html = file_get_contents($url);
         $this->crawler = new Crawler($html);
         $this->crawler->filter('.b-item__pic-wrapper')->each(function (Crawler $node, $i) {
             $uri = $node->attr('href');
-            $url = 'https://www.vesti.ru' . $uri;
-            $urlnews = $this->getNews($url);
+            $dom = 'https://www.vesti.ru';
+            $url = $dom . $uri;
+            if (strpos($url, 'doc.html?id=') !== false) {
+                $urlnews = $this->getNews($url);
+            }
         });
     }
 
-//    public function getNews($url)
-//    {
-//        $news = $url;
-//        $html = file_get_contents($news);
-//        //dd($news);
-//        $this->crawler = new Crawler($html);
-//        $this->crawler->filter('.news-wrapper_')->each(function (Crawler $node, $i) {
-//            $title = $this->text($node, "h1");
-//            $body = $this->html($node, "p");
-//        });
-//       $this->crawler->filter('.article__img img')->each(function (Crawler $node, $i) {
-//            $image = $node->image()->getUri();
-//       });
-//    }
 
-//    public function getParse($path)
-//    {
-//        $url = 'https://www.vesti.ru/news';
-//        $html = file_get_contents($url);
-//        $this->crawler = new Crawler($html);
-//        $this->crawler->filter('.b-item__pic-wrapper')->each(function (Crawler $node, $i) {
-//            $uri = $node->attr('href');
-//            $url = 'https://www.vesti.ru' . $uri;
-//            $urlnews = $this->getNews($url);
-//
-//        });
-//    }
-//
     public function getNews($url)
     {
 
@@ -66,85 +43,42 @@ class VestiNews implements ParseContract
         $htm = file_get_contents($news);
         $this->crawler = new Crawler($htm);
 
-        $this->crawler->filter('.article__title')->each(function (Crawler $node, $i) {
-            $title = $this->text($node, "h1");
-            $news_new = new News;
-            $news_new->title = $title;
-            $news_new->save();
-           // return $node->text("href");
+        sleep(1);
+
+        $this->crawler->filter('.spec')->each(function (Crawler $node, $i) use ($news) {
+            $name_cat = $this->text($node, "a");
+            if ($name_cat != null && isset($name_cat)) {
+                $cat = Category::where('title', $name_cat)->first();
+                $cat->id;
+
+                $this->crawler->filter('.article')->each(function (Crawler $node, $i) use ($cat, $news) {
+
+                    $title = $this->text($node, "h1");
+                    $body = $this->html($node, ".js-mediator-article");
+                    $slug = (new TranslitController)->rus2translit($title);
+                    $time = $this->html($node, '.article__time');
+
+                    $node->filter('.article__img img')->each(function (Crawler $node2, $i2) use ($time, $cat, $slug, $news, $body, $title) {
+                        $image = $node2->image()->getUri();
+                        $pic = \App::make('\App\Libs\Imag')->url($image);
+
+                        $obj = News::where('origin_link', $news)->first();
+                        if (!$obj) {
+                            $news_new = new News;
+                            $news_new->origin_link = $news;
+                            $news_new->title = $title;
+                            $news_new->slug = $slug;
+                            $news_new->time = $time;
+                            $news_new->body = $body;
+                            $news_new->image = $pic;
+                            $news_new->category_id = $cat->id;
+                            $news_new->user_id = (Auth::guest()) ? 0 : Auth::user()->id;
+                            $news_new->save();
+                        }
+
+                    });
+                });
+            }
         });
-
-
-//        //Get Category news
-//        $cat = $this->crawler->filter('.spec')->each(function (Crawler $node, $i) {
-//            return $node->text("href");
-//        });
-//
-//
-//        // Get Title news.
-//        $title = $this->crawler->filter('.article__title')->each(function (Crawler $node, $i) {
-//            return $node->text("h1");
-//        });
-//
-//        // Get Text news
-//        $body = $this->crawler->filter('.js-mediator-article')->each(function (Crawler $node, $i) {
-//            return $node->html("p");
-//        });
-//
-//        // Get Image URL
-//        $image = $this->crawler->filter('.article__img img')->each(function (Crawler $node, $i) {
-//            return $node->image()->getUri();
-//        });
-
-//        $content = [
-//            'origin_link' => $news,
-//            'cat' => $cat,
-//            'title' => $title,
-//            'body' => $body,
-//            'image' => $image,
-//        ];
-
-//        News::create([
-//           // 'origin_link' => implode($news),
-//           // 'cat' => $cat,
-//            'title' => $title,
-//           // 'body' => $body,
-//          //  'image' => implode($image),
-//        ]);
-
-       // dd($content);
-
-
-
-//
-//        // return $content;
-//
-//        $project = new News();
-//        News::saved($project);
-
-//        public function create_project($content)
-//    {
-//        $title = $content['title'];
-//        $body = $content['bo'];
-//        $url = $data['url'];
-//        $author = $data['author'];
-//        $create_date = $data['create_date'];
-//        $update_date = $data['update_date'];
-//
-//        return DB::insert('insert into st_projects (title, description, url, author, create_date, update_date) values (?, ?, ?, ?, ?, ?)', [$title, $description, $url, $author, $create_date, $update_date]);
-//    }
-//
-//
-////        DB::table('news')->insert([
-////            // 'origin_link' => $news,
-////            'title' => $content['title'],
-////            'body' => $content['body'],
-////            'image' => $content['image'],
-////        ]);
-//
-//       // dd($content);
-//
- }
-
-
+    }
 }

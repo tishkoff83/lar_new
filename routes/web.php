@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 use App\Providers\ViewComposers\BaseComposer;
+//use Illuminate\Routing\Route;
 
 //use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::get('parse', 'NewsController@getNews');
 Route::get('/', 'BaseController@getIndex')->name('index');
 Route::get('{url}', 'BaseController@getUrl');
 
-Route::get('category/{url}', 'CategoryController@getOne')->name('categories');
+Route::get('/categories/{url}', 'CategoryController@categories')->name('categories');
+
+// Route::get('categories/{url}', 'CategoryController@getOne')->name('categories');
 
 

@@ -19,4 +19,5 @@ class BaseController extends Controller
         return view('static.static', compact('obj'));
     }
 
+
 }
